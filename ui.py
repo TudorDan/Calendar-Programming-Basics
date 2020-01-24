@@ -50,5 +50,18 @@ def get_inputs(title, list_labels):
     # list which holds the input answers from user
     user_inputs = []
     for item in list_labels:
-        user_inputs.append(f"{item}: ")
+        user_inputs.append(input(f"{item}: "))
     return user_inputs
+
+
+def print_error_message(message):
+    """
+    Displays an error message (example: ``Error: @message``)
+
+    Args:
+        message (str): error message to be displayed
+
+    Returns:
+        None: This function doesn't return anything it only prints to console.
+    """
+    print(f"ERROR: {message}")
