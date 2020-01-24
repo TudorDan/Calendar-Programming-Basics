@@ -17,11 +17,10 @@ def print_menu():
     """
     lines_to_print = ["Menu:",
                       "(s) schedule a new meeting",
-                      "(c) cancel an existing meeting"
+                      "(c) cancel an existing meeting",
                       "(q) quit"]
     for element in lines_to_print:
         print(element)
-    print("\n")
 
 
 def get_inputs(title, list_labels):
@@ -46,7 +45,7 @@ def get_inputs(title, list_labels):
         list: List of data given by the user. Sample return:
             [<user_input_1>, <user_input_2>, <user_input_3>]
     """
-    print(f"{title}.")
+    print(f"{title}")
     # list which holds the input answers from user
     user_inputs = []
     for item in list_labels:
@@ -65,7 +64,7 @@ def print_result(label, result):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-    print(f"{label}: {result}")
+    print(f"\n{label}:\n{result}\n")
 
 
 def print_error_message(message):
