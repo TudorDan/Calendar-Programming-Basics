@@ -23,6 +23,33 @@ def print_menu():
         print(element)
 
 
+def print_list(schedule):
+    """
+    Prints table with data.
+
+    Example:
+        Your schedule for the day:
+        12 - 13 Lunch
+
+    Args:
+        schedule (list): list of lists to display
+
+    Returns:
+        None: This function doesn't return anything it only prints to console.
+    """
+    START_TIME = 0
+    END_TIME = 1
+    MEETING_TITLE = 2
+    print("\nYour schedule for the day:")
+    if len(schedule) == 0:
+        print("(empty)\n")
+    else:
+        for row in schedule:
+            print(
+                f"{row[START_TIME]} - {row[END_TIME]} {row[MEETING_TITLE]}")
+    print("\n")
+
+
 def get_inputs(title, list_labels):
     """
     Gets list of inputs from the user.
