@@ -1,31 +1,54 @@
-""" User Interface (UI) module """
+""" User Interface (UI) module for milestoneCalendar"""
 
 
-def main():
-    def print_menu(title, list_options, exit_message):
-        """
-        Displays a menu. Sample output:
-            Menu:
-                (s) schedule a new meeting
-                (c) cancel an existing meeting
-                (q) quit
+def print_menu():
+    """
+    Displays a menu. Sample output:
+        Menu:
+            (s) schedule a new meeting
+            (c) cancel an existing meeting
+            (q) quit
 
-        Args:
-            title (str): menu title
-            list_options (list): list of strings - options that will be shown in menu
-            exit_message (str): the last option with (0) (example: "Back to main menu")
+    Args:
+        none
 
-        Returns:
-            None: This function doesn't return anything it only prints to console.
-        """
-        lines_to_print = ["Menu:",
-                          "(s) schedule a new meeting",
-                          "(c) cancel an existing meeting"
-                          "(q) quit"]
-        for element in lines_to_print:
-            print(element)
-        print("\n")
+    Returns:
+        None: This function doesn't return anything it only prints to console.
+    """
+    lines_to_print = ["Menu:",
+                      "(s) schedule a new meeting",
+                      "(c) cancel an existing meeting"
+                      "(q) quit"]
+    for element in lines_to_print:
+        print(element)
+    print("\n")
 
 
-if __name__ == "__main__":
-    main()
+def get_inputs(title, list_labels):
+    """
+    Gets list of inputs from the user.
+    Sample call:
+        get_inputs("Schedule a new meeting",
+                    ["Enter meeting title",
+                    "Enter duration in hours (1 or 2)",
+                    "Enter start time"])
+    Sample display:
+        Schedule a new meeting.
+        Enter meeting title: <user_input_1>
+        Enter duration in hours (1 or 2): <user_input_2>
+        Enter start time: <user_input_3>
+
+    Args:
+        title (string): title of the "input section"
+        list_labels (list): labels of inputs
+
+    Returns:
+        list: List of data given by the user. Sample return:
+            [<user_input_1>, <user_input_2>, <user_input_3>]
+    """
+    print(f"{title}.")
+    # list which holds the input answers from user
+    user_inputs = []
+    for item in list_labels:
+        user_inputs.append(f"{item}: ")
+    return user_inputs
