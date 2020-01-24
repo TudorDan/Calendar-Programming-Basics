@@ -54,6 +54,20 @@ def get_inputs(title, list_labels):
     return user_inputs
 
 
+def print_result(label, result):
+    """
+    Displays results of the special functions.
+
+    Args:
+        label (str): label of the result
+        result: result of the special function (string, number, list or dict)
+
+    Returns:
+        None: This function doesn't return anything it only prints to console.
+    """
+    print(f"{label}: {result}")
+
+
 def print_error_message(message):
     """
     Displays an error message (example: ``Error: @message``)
