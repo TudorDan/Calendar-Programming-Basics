@@ -30,10 +30,31 @@ def choose(data):
         editing_info = edit(data)
         storage.write_list_to("meetings.txt", editing_info)
         ui.print_result("Meeting updated.", "")
+    elif option == "h":
+        total_hours = how_many_hours(data)
+        ui.print_result("Total meeting duration (in hours):", total_hours)
     elif option == "q":
         sys.exit(0)
     else:
         raise KeyError
+
+
+def how_many_hours(schedule):
+    """
+    Calculates total meeting duration.
+
+    Args:
+        schedule (list): list in which meeting should be updated
+
+    Returns:
+        int: total hours of meetings
+    """
+    START_TIME = 0
+    END_TIME = 1
+    total_time = 0
+    for row in schedule:
+        total_time += int(row[END_TIME]) - int(row[START_TIME])
+    return total_time
 
 
 def edit(data):

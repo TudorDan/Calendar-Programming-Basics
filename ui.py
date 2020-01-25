@@ -19,6 +19,7 @@ def print_menu():
                       "(s) schedule a new meeting",
                       "(c) cancel an existing meeting",
                       "(e) edit a meeting",
+                      "(h) how many hours of meetings",
                       "(q) quit"]
     for element in lines_to_print:
         print(element)
