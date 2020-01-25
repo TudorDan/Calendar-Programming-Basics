@@ -47,7 +47,7 @@ def print_list(schedule):
         for row in schedule:
             print(
                 f"{row[START_TIME]} - {row[END_TIME]} {row[MEETING_TITLE]}")
-    print("\n")
+        print("\n")
 
 
 def get_inputs(title, list_labels):
@@ -91,7 +91,7 @@ def print_result(label, result):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-    print(f"\n{label}:\n{result}\n")
+    print(f"{label} {result}\n")
 
 
 def print_error_message(message):
