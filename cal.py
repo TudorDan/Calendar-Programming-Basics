@@ -37,7 +37,12 @@ def choose(data):
         total_hours = how_many_hours(data)
         ui.print_result("Total meeting duration (in hours):", total_hours)
     elif option == "m":
-        pass
+        if len(data) == 0:
+            ui.print_result("No meetings to compact!", "")
+        else:
+            compacted_info = compact_meetings(data)
+            storage.write_list_to("meetings.txt", compacted_info)
+            ui.print_result("Meetings compacted!", "")
     elif option == "q":
         sys.exit(0)
     else:
@@ -54,6 +59,21 @@ def compact_meetings(schedule):
     Returns:
         list: list of lists with compacted meetings
     """
+    START_TIME = 0
+    END_TIME = 1
+    meetings_length = len(schedule)
+    if int(schedule[0][START_TIME]) != 8:
+        # find meeting duration first
+        temp = int(schedule[0][START_TIME]) - 8
+        schedule[0][START_TIME] = "8"
+        schedule[0][END_TIME] = str(int(schedule[0][END_TIME]) - temp)
+
+    for i in range(1, meetings_length):
+        # find each meeting duration first
+        temp = int(schedule[i][END_TIME]) - int(schedule[i][START_TIME])
+        schedule[i][START_TIME] = schedule[i-1][END_TIME]
+        schedule[i][END_TIME] = str(int(schedule[i - 1][END_TIME]) + temp)
+    return schedule
 
 
 def how_many_hours(schedule):
