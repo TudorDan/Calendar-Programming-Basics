@@ -48,20 +48,85 @@ def add(schedule):
     meeting_headers = ["Enter meeting title",
                        "Enter duration in hours (1 or 2)",
                        "Enter start time"]
-    title_duration_start = ui.get_inputs(
-        "Schedule a new meeting:", meeting_headers)
-    # change meeting duration to end time
+    while True:
+        title_duration_start = ui.get_inputs(
+            "Schedule a new meeting:", meeting_headers)
+        try:
+            if (check_start(schedule, title_duration_start[START_TIME]) and
+                    verify_start_overlap(
+                        schedule, title_duration_start[START_TIME]) and
+                    check_duration(title_duration_start[DURATION_HOURS])):
+                # change meeting duration to end time
+                details = []
+                details.append(title_duration_start[START_TIME])
+                start_for_verify = int(title_duration_start[START_TIME]) + \
+                    int(title_duration_start[DURATION_HOURS])
+                details.append(str(start_for_verify))
+                details.append(title_duration_start[MEETING_TITLE])
+                ui.print_result("Meeting added.", "")
+                return details
+            else:
+                raise ValueError
+        except ValueError:
+            if not check_start(title_duration_start[START_TIME]):
+                ui.print_error_message(
+                    "Meeting is outside of your working hours (8 to 18)!")
+            if not verify_start_overlap(schedule, title_duration_start[START_TIME]):
+                ui.print_error_message(
+                    "Meeting overlaps with existing meeting!")
+            if not check_duration(title_duration_start[DURATION_HOURS]):
+                ui.print_error_message("Duration must be 1 or 2 hours!")
 
-    details = []
-    details.append(title_duration_start[START_TIME])
-    temp = int(title_duration_start[START_TIME]) + \
-        int(title_duration_start[DURATION_HOURS])
-    if temp > 23:
-        temp -= 24
-    details.append(str(temp))
-    details.append(title_duration_start[MEETING_TITLE])
-    ui.print_result("Meeting added.", "")
-    return details
+
+def check_duration(string_element):
+    """
+    Returns True or False if given element is legit start meeting time
+
+    Args:
+        string_element (str): data to work on
+    """
+    if int(string_element) == 1 or int(string_element) == 2:
+        return True
+    return False
+
+
+def check_start(string_element):
+    """
+    Returns True or False if given element is legit start meeting time
+
+    Args:
+        string_element (str): data to work on
+    """
+    # The meetings should be between 8 and 18
+    start_for_verify = int(string_element)
+    if start_for_verify >= 8 and start_for_verify <= 18:
+        return True
+    return False
+
+
+def verify_start_overlap(data, string_element):
+    """
+    Returns True or False if given element is legit start meeting time
+
+    Args:
+        data (list): list of list to compare with
+        string_element (str): data to work on
+    """
+    START_TIME = 0
+    END_TIME = 1
+    occupied_hours = []
+    for row in data:
+        temp = int(row[START_TIME]) + 1
+        if int(row[END_TIME]) != temp:
+            occupied_hours.extend(
+                [int(row[START_TIME]), temp, int(row[END_TIME])])
+        else:
+            occupied_hours.extend([int(row[START_TIME]), int(row[END_TIME])])
+    # It should not be possible to schedule a meeting that overlaps with existing meeting
+    start_for_verify = int(string_element)
+    if start_for_verify in occupied_hours:
+        return False
+    return True
 
 
 def cancel(meeting):
