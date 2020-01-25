@@ -36,10 +36,24 @@ def choose(data):
     elif option == "h":
         total_hours = how_many_hours(data)
         ui.print_result("Total meeting duration (in hours):", total_hours)
+    elif option == "m":
+        pass
     elif option == "q":
         sys.exit(0)
     else:
         raise KeyError
+
+
+def compact_meetings(schedule):
+    """
+    Moves meetings to earliest possible time (starting from 8)
+
+    Args:
+        schedule (list): list in which meeting should be compacted
+
+    Returns:
+        list: list of lists with compacted meetings
+    """
 
 
 def how_many_hours(schedule):
