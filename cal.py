@@ -52,7 +52,7 @@ def add(schedule):
         title_duration_start = ui.get_inputs(
             "Schedule a new meeting:", meeting_headers)
         try:
-            if (check_start(schedule, title_duration_start[START_TIME]) and
+            if (check_start(title_duration_start[START_TIME]) and
                     verify_start_overlap(
                         schedule, title_duration_start[START_TIME]) and
                     check_duration(title_duration_start[DURATION_HOURS])):
@@ -141,14 +141,12 @@ def cancel(meeting):
     """
     START_TIME = 0
     start_times = [row[START_TIME] for row in meeting]
-    print(f'start_times = {start_times}')
     while True:
         start_time_removal = ui.get_inputs(
             "Cancel an existing meeting:", ["Enter the start time"])[START_TIME]
-        print(f'start_time_removal = {start_time_removal}')
         try:
             if start_time_removal in start_times:
-                return [record for record in meeting if record[0] != start_time_removal]
+                return [record for record in meeting if record[START_TIME] != start_time_removal]
             else:
                 raise ValueError
         except ValueError:
