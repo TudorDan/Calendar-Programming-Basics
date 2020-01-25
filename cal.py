@@ -26,10 +26,48 @@ def choose(data):
         cancelation_info = cancel(data)
         storage.write_list_to("meetings.txt", cancelation_info)
         ui.print_result("Meeting canceled.", "")
+    elif option == "e":
+        editing_info = edit(data)
+        storage.write_list_to("meetings.txt", editing_info)
+        ui.print_result("Meeting updated.", "")
     elif option == "q":
         sys.exit(0)
     else:
         raise KeyError
+
+
+def edit(data):
+    """
+    Updates specified meeting in the schedule. Ask users for new data.
+
+    Args:
+        data (list): list in which meeting should be updated
+
+    Returns:
+        list: list of lists with updated meeting
+    """
+    START_TIME = 0
+    start_times = [row[START_TIME] for row in data]
+    if len(start_times) == 0:
+        ui.print_result("No meetings for today!", "")
+        return data
+    else:
+        while True:
+            start_time_update = ui.get_inputs(
+                "Edit an existing meeting:", ["Enter the start time"])[START_TIME]
+            try:
+                if start_time_update in start_times:
+                    clear_existing_meeting = [record for record in data if record[START_TIME]
+                                              != start_time_update]
+                    temp = add(clear_existing_meeting)
+                    updated_schedule = []
+                    updated_schedule.append(temp)
+                    return updated_schedule
+                else:
+                    raise ValueError
+            except ValueError:
+                ui.print_error_message(
+                    f"{start_time_update} does not exist in the database!\n")
 
 
 def add(schedule):
