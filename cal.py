@@ -163,7 +163,9 @@ def add(schedule):
                 details.append(meeting_end)
                 details.append(title_duration_start[MEETING_TITLE])
                 ui.print_result("Meeting added.", "")
-                return details
+                data_sorted = sorted(
+                    details, key=lambda element: element[0])
+                return data_sorted
             else:
                 raise ValueError
         except ValueError:
